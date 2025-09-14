@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两广地方戏剧网</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .user-section {
+            position: absolute;
+            right: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        .user-section {
+            display: flex;
+        }
+        .song-title {
+            color: white;
+            padding: 14px 20px;
+            font-weight: bold;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .content {
+            padding: 20px;
+        }
+        .upload-section {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .gallery {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .gallery img {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .upload-progress {
+            width: 100%;
+            height: 10px;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+            .upload-preview {
+                max-width: 100%;
+                margin-top: 15px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <a href="#homePage">首页</a>
+            <a href="#momentsPage">精彩时刻</a>
+            <a href="#fullCollectionPage">全集</a>
+            <a href="#niugexiPage">牛哥戏</a>
+            <a href="#beiliuPage">北流木偶戏</a>
+            <a href="#aboutPage">关于我们</a>
+            <a href="#renbanxiPage">人班戏音频</a>
+            <a href="#rongxianPage">容县彩茶戏</a>
+        </div>
+        <div class="user-section">
+            <a href="#" id="loginBtn">登录</a>
+            <a href="#" id="uploadBtn">上传</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+        <div class="loading" id="loading" style="display: none;">
+            <div class="loader"></div>
+            <p>正在加载...</p>
+        </div>
+
+        <div class="page" id="fullCollectionPage" style="display: none;">
+            <h1>戏剧全集</h1>
+            <div class="collection-container">
+                <div class="collection-item">
+                    <h3>人班戏</h3>
+                    <p>嫁妻代嫂</p>
+                    <video controls height="300px" width="400px"></video>
+                    
+                    <p>三合宝明珠</p>
+                    <video src="" controls height="300px" width="400px" title=""></video>
+                    <p>牛郎织女</p>
+                    <video src="北流戏牛郎织女/10.10.北流戏牛郎织女01.rmvb_标清.mp4" controls height="300px" width="400px" title="牛郎织女1"></video>
+                    <video src="北流戏牛郎织女/12.12.北流戏牛郎织女03.rmvb_标清.mp4" controls height="300px" width="400px" title="牛郎织女2"></video>
+                    <p>郭子仪</p>
+                    <video src="北流戏牛郎织女/029-郭子仪祝寿1.mp4" controls height="300px" width="400px" title="郭子仪祝寿1"></video>
+                    <p>血染状元袍</p>
+                    <video src="血染状元袍/001血染状元袍.mp4" controls height="300px" width="400px" title="血染状元袍01"></video>
+                    <p>借碳妹</p>
+                    <video src="借碳妹/001借碳妹01.mp4" controls height="300px" width="400px" title="借碳妹01"></video>
+                    <p>两国为王</p>
+                    <video src="两国为王/两国为王1.mp4" controls height="300px" width="400px" title="两国为王1"></video>
+                    <video src="两国为王/两国为王2.mp4" controls height="300px" width="400px" title="两国为王2"></video>
+                    <video src="两国为王/两国为王3.mp4" controls height="300px" width="400px" title="两国为王3"></video>
+                    <p>看鸭妹</p>
+                    <video src="看鸭妹/007-看鸭妹(1).mp4" controls height="300px" width="400px" title="看鸭妹1"></video>
+                    <video src="看鸭妹/008-看鸭妹(2).mp4" controls height="300px" width="400px" title="看鸭妹2"></video>
+                    <video src="看鸭妹/009-看鸭妹(3).mp4" controls height="300px" width="400px" title="看鸭妹3"></video>
+                    <p>周公点卦</p>
+                    <video src="看鸭妹/016-周公点挂1.mp4" controls height="300px" width="400px" title="周公点挂1"></video>
+                    <video src="看鸭妹/017-周公点挂2.mp4" controls height="300px" width="400px" title="周公点挂2"></video>
+                    <video src="看鸭妹/018-周公点挂3.mp4" controls height="300px" width="400px" title="周公点挂3"></video>
+                    <p>换仔记</p>
+                    <video src="换仔记/008换仔记.mp4" controls height="300px" width="400px" title="换仔记1"></video>
+                    <video src="换仔记/009换仔记.mp4" controls height="300px" width="400px" title="换仔记2"></video>
+                    <video src="换仔记/010换仔记.mp4" controls height="300px" width="400px" title="换仔记3"></video>
+                    <p>高文舉</p>
+                    <video src="高文举/025-高文举(1).mp4" controls height="300px" width="400px" title="高文舉1"></video>
+                    <video src="高文举/026-高文举(2).mp4 " controls height="300px" width="400px" title="高文舉2"></video>
+                    <video src="高文举/027-高文举(3).mp4" controls height="300px" width="400px" title="高文舉3"></video>
+                    <video src="高文举/028-高文举(4).mp4" controls height="300px" width="400px" title="高文舉4"></video>
+                    <video src="高文举/029-高文举(5).mp4 " controls height="300px" width="400px" title="高文舉5"></video>
+                    <video src="高文举/030-高文举(6).mp4 " controls height="300px" width="400px" title="高文舉6"></video>
+                    <video src="高文举/031-高文举(7).mp4 " controls height="300px" width="400px" title="高文舉7"></video>
+                    <video src="高文举/032-高文举(8).mp4 " controls height="300px" width="400px" title="高文舉8"></video>
+                    <video src="高文举/033-高文举(9).mp4 " controls height="300px" width="400px" title="高文舉9"></video>
+                </div>
+                <div class="collection-item">
+                    <h3>容县彩茶戏</h3>
+                    <video src="" controls height="300px" width="400px"></video>
+                    <video src="" controls height="300px" width="400px"></video>
+                    <video src="" controls height="300px" width="400px"></video>
+                    <video src="" controls height="300px" width="400px"></video>
+
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .collection-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 30px;
+                margin: 30px 0;
+                padding: 20px;
+            }
+
+            .collection-item {
+                background-color: #f8f9fa;
+                padding: 25px;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .collection-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            }
+
+            .collection-item h3 {
+                margin: 0 0 15px 0;
+                color: #222;
+                font-size: 1.4rem;
+                text-align: center;
+            }
+
+            .collection-item p {
+                margin: 10px 0;
+                color: #444;
+                font-size: 1.1rem;
+            }
+
+            .collection-item video {
+                width: 100%;
+                height: 240px;
+                border-radius: 8px;
+                object-fit: cover;
+                margin-bottom: 15px;
+            }
+
+            .video-group {
+                display: grid;
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .video-group video {
+                height: 200px;
+            }
+
+            @media (max-width: 768px) {
+                .collection-container {
+                    flex-direction: column;
+                }
+            }
+        </style>
+        <div class="page" id="homePage">
+            <h1>欢迎您的到来与探索</h1>
+            <div class="intro-section">
+                <div class="video-container">
+                    <video controls>
+                        <source src="精彩片段.mp4" type="video/mp4" title="皇仔偷马">
+                        您的浏览器不支持视频标签。
+                    </video>
+                </div>
+                <div class="documentation">
+                    <h2>戏剧网介绍</h2>
+                    <p>本网站是一个集成了多种功能的综合平台，专门为广西各个地区的人民提供当地丰富多彩的戏剧文化</p>
+                    <ul>
+                        <li>清晰的导航菜单，方便您的快速访问不同页面</li>
+                        <li>完善的用户系统，支持注册、登录和记住登录状态</li>
+                        <li>多媒体上传功能，支持视频和音频文件</li>
+                        <li>响应式设计，适配不同设备屏幕</li>
+                        <li>简洁美观的界面设计，提升用户体验</li>
+                    </ul>
+                    <p>欢迎您探索和使用本网站的各项功能。如果您有任何问题或建议，请随时联系我们。</p>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .intro-section {
+                display: flex;
+                gap: 30px;
+                margin-top: 20px;
+            }
+
+            .video-container {
+                flex: 1;
+                max-width: 600px;
+            }
+
+            video {
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .documentation {
+                flex: 1;
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .documentation h2 {
+                margin-top: 0;
+                color: #333;
+            }
+
+            .documentation p {
+                line-height: 1.6;
+                color: #555;
+            }
+
+            .documentation ul {
+                padding-left: 20px;
+                margin: 15px 0;
+            }
+
+            .documentation li {
+                margin-bottom: 8px;
+                color: #555;
+            }
+
+            @media (max-width: 768px) {
+                .intro-section {
+                    flex-direction: column;
+                }
+
+                .video-container {
+                    max-width: 100%;
+                }
+            }
+        </style>
+
+        <div class="page" id="momentsPage" style="display: none;">
+            <h1>精彩时刻</h1>
+            <p>人班戏</p>
+            <video src="11月15日.mp4" muted autoplay loop controls nodownload height="400px" width="500px" title="三合宝明珠" align="center"></a></video>
+            <video src="拐脚公子/拐脚公子.mp4" muted autoplay loop controls nodownload height="400px" width="500px" title="拐脚公子" align="center"></a></video>
+            <video src="精彩时刻/三盒宝明珠.mp4"muted autoplay loop controls nodownload height="400px" width="500px" title="三合宝明珠" align="center"></a></video>
+            <p>容县彩茶戏</p>
+            <video src="示例视频.mp4" muted autoplay loop controls nodownload height="400px" width="500px" title="缺月难圆" align="center"></a></video>
+        </div>
+
+        <div class="page" id="loginPage" style="display: none;">
+            <div class="login-container">
+                <h2>用户登录</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username">用户名:</label>
+                        <input type="text" id="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="rememberMe"> 记住我
+                        </label>
+                    </div>
+                    <button type="submit">登录</button>
+                </form>
+                <p class="register-link">还没有账号？<a href="#" id="showRegisterForm">立即注册</a></p>
+            </div>
+        </div>
+
+        <div class="page" id="registerPage" style="display: none;">
+            <div class="login-container">
+                <h2>用户注册</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="regUsername">用户名:</label>
+                        <input type="text" id="regUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail">邮箱:</label>
+                        <input type="email" id="regEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">密码:</label>
+                        <input type="password" id="regPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regConfirmPassword">确认密码:</label>
+                        <input type="password" id="regConfirmPassword" required>
+                    </div>
+                    <button type="submit">注册</button>
+                </form>
+                <p class="register-link">已有账号？<a href="#" id="showLoginForm">立即登录</a></p>
+            </div>
+        </div>
+
+        <div class="page" id="niugexiPage" style="display: none;">
+            <h1>牛哥戏</h1>
+            <div class="collection-container">
+                <div class="collection-item">
+                    <h3>乞丐皇后第一集</h3>
+                    <div class="video-group">
+                        <video src="牛歌戏《乞丐皇后》1.mp4" controls></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="beiliuPage" style="display: none;">
+            <h1>北流木偶戏</h1>
+            <div class="collection-container">
+                <div class="collection-item">
+                    <h3></h3>
+                    <div class="video-group">
+                        <video src="木偶戏/_高清1080P在线观看平台_腾讯视频.mp4" controls></video>
+                        <video src="" controls></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="aboutPage" style="display: none;">
+            <h1>关于我们</h1>
+            <div class="about-content">
+                <div class="about-section">
+                    <h2>项目介绍</h2>
+                    <p>两广地方戏剧网致力于保护和传承广西、广东地区的传统戏剧文化。我们收集整理了大量的地方戏剧资源，包括牛哥戏、北流木偶戏、容县彩茶戏等珍贵的地方戏剧作品。</p>
+                </div>
+                
+                <div class="about-section">
+                    <h2>我们的使命</h2>
+                    <ul>
+                        <li>保护和传承地方戏剧文化</li>
+                        <li>提供高质量的数字戏剧资源</li>
+                        <li>促进地方戏剧的传播和发展</li>
+                        <li>搭建戏剧爱好者交流平台</li>
+                    </ul>
+                </div>
+
+                <div class="about-section">
+                    <h2>联系我们</h2>
+                    <p>邮箱：contact@localopera.com</p>
+                    <p>电话：0771-1234567</p>
+                    <p>地址：广西南宁市青秀区戏剧文化中心</p>
+                </div>
+            </div>
+
+            <style>
+                .about-content {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+
+                .about-section {
+                    margin-bottom: 30px;
+                    padding: 20px;
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                }
+
+                .about-section h2 {
+                    color: #333;
+                    margin-top: 0;
+                    border-bottom: 2px solid #3498db;
+                    padding-bottom: 10px;
+                }
+
+                .about-section p {
+                    line-height: 1.6;
+                    color: #555;
+                }
+
+                .about-section ul {
+                    padding-left: 20px;
+                    color: #555;
+                }
+
+                .about-section li {
+                    margin-bottom: 10px;
+                }
+            </style>
+        </div>
+
+        <div class="upload-section" id="uploadSection" style="display: none;">
+            <h2>上传文件</h2>
+            <div class="upload-controls">
+                <input type="file" id="fileInput" multiple accept="video/*,audio/*,image/*">
+                <div class="file-types">
+                    <label><input type="checkbox" name="fileType" value="video" checked> 视频</label>
+                    <label><input type="checkbox" name="fileType" value="audio" checked> 音频</label>
+                    <label><input type="checkbox" name="fileType" value="image" checked> 图片</label>
+                </div>
+                <div class="file-preview" id="filePreview"></div>
+                <div class="file-info">
+                    <p>最大文件大小：1GB</p>
+                    <p>支持格式：MP4, WebM, MP3, WAV, JPG, PNG</p>
+                </div>
+                <button onclick="uploadFile()">开始上传</button>
+                <div class="upload-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 页面切换功能
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('href').substring(1);
+                    showPage(target);
+                });
+            });
+
+            function showPage(pageId) {
+                // 显示加载动画
+                const loading = document.getElementById('loading');
+                loading.style.display = 'block';
+                
+                // 隐藏所有页面
+                pages.forEach(page => {
+                    page.style.display = 'none';
+                });
+
+                // 模拟加载延迟
+                setTimeout(() => {
+                    // 显示目标页面
+                    const targetPage = document.getElementById(pageId);
+                    if (targetPage) {
+                        targetPage.style.display = 'block';
+                    }
+                    
+                    // 隐藏加载动画
+                    loading.style.display = 'none';
+                }, 300); // 500ms 加载时间
+            }
+
+            // 文件上传功能
+            const fileInput = document.getElementById('fileInput');
+            const filePreview = document.getElementById('filePreview');
+            const progressBar = document.getElementById('progressBar');
+
+            fileInput.addEventListener('change', (e) => {
+                filePreview.innerHTML = '';
+                Array.from(e.target.files).forEach(file => {
+                    const preview = document.createElement('div');
+                    preview.className = 'file-preview-item';
+                    preview.innerHTML = `
+                        <p>${file.name}</p>
+                        <p>${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    `;
+                    filePreview.appendChild(preview);
+                });
+            });
+
+            async function uploadFile() {
+                const files = fileInput.files;
+                if (files.length === 0) {
+                    alert('请选择要上传的文件');
+                    return;
+                }
+
+                const formData = new FormData();
+                Array.from(files).forEach(file => {
+                    formData.append('files', file);
+                });
+
+                try {
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    const result = await response.json();
+                    if (response.ok) {
+                        alert('文件上传成功');
+                        fileInput.value = '';
+                        filePreview.innerHTML = '';
+                        progressBar.style.width = '0%';
+                    } else {
+                        throw new Error(result.error || '文件上传失败');
+                    }
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+        </script>
+    </body>
+</html>
